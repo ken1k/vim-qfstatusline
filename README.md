@@ -1,4 +1,4 @@
-#vim-qfstatusline
+# vim-qfstatusline
 
 [![](https://img.shields.io/travis/KazuakiM/vim-qfstatusline.svg)](https://travis-ci.org/KazuakiM/vim-qfstatusline)
 [![Build status](https://ci.appveyor.com/api/projects/status/lte1vdem9lmsyjo3/branch/master?svg=true)](https://ci.appveyor.com/project/KazuakiM/vim-qfstatusline/branch/master)
@@ -6,25 +6,27 @@
 [![](https://img.shields.io/badge/doc-%3Ah%20qfstatusline.txt-blue.svg)](doc/qfstatusline.txt)
 [![](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-This Vim plugin is plugin supporting [watchdogs](https://github.com/osyo-manga/vim-watchdogs).  
+![screen shot](img/status_text1.png)
+
+This Vim plugin is plugin supporting [watchdogs](https://github.com/osyo-manga/vim-watchdogs).
 If [watchdogs](https://github.com/osyo-manga/vim-watchdogs) check syntax error,
 this plugin execute statusline plugin function and statusline plugin call back to get error messages.
 
-##Requirement
+## Requirement
 
 * [vimproc](https://github.com/Shougo/vimproc)
 * [vim-quickrun](https://github.com/thinca/vim-quickrun)
 * [shabadou.vim](https://github.com/osyo-manga/shabadou.vim)
 * [watchdogs](https://github.com/osyo-manga/vim-watchdogs)
 
-##Recommends
+## Recommends
 
 * [lightline](https://github.com/itchyny/lightline.vim)
 
-##Usage
-###Installation
+## Usage
+### Installation
 
-Sample setting is using [NeoBundle](https://github.com/Shougo/neobundle.vim).  
+Sample setting is using [NeoBundle](https://github.com/Shougo/neobundle.vim).
 If you want to use quickfix window, you can check [here](https://github.com/KazuakiM/vim-qfstatusline/blob/master/README.md#using-also-quickfix-window).
 
 ```vim
@@ -42,17 +44,17 @@ NeoBundle 'osyo-manga/vim-watchdogs'
 NeoBundle 'KazuakiM/vim-qfstatusline'
 ```
 
-###default statusline setting
+### default statusline setting
 
 ```vim
 function! StatuslineUpdate()
     return qfstatusline#Update()
 endfunction
 let g:Qfstatusline#UpdateCmd = function('StatuslineUpdate')
-set statusline=\ %{mode()}\ \|\ %t\ %m\ %r\ %h\ %w\ %q\ %{StatuslineUpdate()}%=\|\ %Y\ \|\ %{&fileformat}\ \|\ %{&fileencoding}\ 
+set statusline=\ %{mode()}\ \|\ %t\ %m\ %r\ %h\ %w\ %q\ %{StatuslineUpdate()}%=\|\ %Y\ \|\ %{&fileformat}\ \|\ %{&fileencoding}\
 ```
 
-###lightline.vim setting
+### lightline.vim setting
 
 ```vim
 NeoBundle 'itchyny/lightline.vim'
@@ -65,7 +67,7 @@ let g:lightline = {
 let g:Qfstatusline#UpdateCmd = function('lightline#update')
 ```
 
-####using also quickfix window
+#### using also quickfix window
 
 ```vim
 let g:quickrun_config = {

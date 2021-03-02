@@ -19,25 +19,31 @@ function! qfstatusline#Update() abort "{{{
         return s:checkDict.text
     endif
 
-    "Setting statusline
+    let s:errorDict = {'num': 9999, 'text': ''}
+    let s:errorFnr  = []
+
+    call s:Filter()
+
+    return s:Output()
+endfunction "}}}
+function! s:Filter() abort "{{{
     let l:bufnr = bufnr('%')
-    "Depend on check logic. So maybe all OK.
-    let l:errorDict = {'num': 9999, 'text': ''}
-    let l:errorFnr  = []
     for l:qfrow in getqflist()
-        if l:qfrow.bufnr ==# l:bufnr && 0 < l:qfrow.lnum && count(l:errorFnr, l:qfrow.lnum) ==# 0
-            if l:qfrow.lnum <= l:errorDict.num
-                let l:errorDict = {'num': l:qfrow.lnum, 'text': l:qfrow.text}
+        if l:qfrow.bufnr ==# l:bufnr && 0 < l:qfrow.lnum && count(s:errorFnr, l:qfrow.lnum) ==# 0
+            if l:qfrow.lnum <= s:errorDict.num
+                let s:errorDict = {'num': l:qfrow.lnum, 'text': l:qfrow.text}
             endif
-            call add(l:errorFnr, l:qfrow.lnum)
+            call add(s:errorFnr, l:qfrow.lnum)
         endif
     endfor
-    let l:errorFnrLen = len(l:errorFnr)
+endfunction "}}}
+function! s:Output() abort "{{{
+    let l:errorFnrLen = len(s:errorFnr)
     if 0 < l:errorFnrLen
         if g:Qfstatusline#Text
-            let s:checkDict = {'check': 0, 'text': 'L'.l:errorDict.num.'('.l:errorFnrLen.') M:'.l:errorDict.text}
+            let s:checkDict = {'check': 0, 'text': 'L'.s:errorDict.num.'('.l:errorFnrLen.') M:'.s:errorDict.text}
         else
-            let s:checkDict = {'check': 0, 'text': 'Error: L'.l:errorDict.num.'('.l:errorFnrLen.')'}
+            let s:checkDict = {'check': 0, 'text': 'Error: L'.s:errorDict.num.'('.l:errorFnrLen.')'}
         endif
         return s:checkDict.text
     endif
