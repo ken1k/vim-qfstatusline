@@ -16,6 +16,14 @@ if !exists('g:Qfstatusline#ErrorConfig')
 		let g:Qfstatusline#ErrorConfig['format'] = 'L%l(%n)'
 	endif
 endif
+if !exists('g:Qfstatusline#WarningConfig')
+	let g:Qfstatusline#WarningConfig = {'pattern':'w'}
+	if g:Qfstatusline#Text ==# 1
+		let g:Qfstatusline#WarningConfig['format'] = 'L%l(%n) M:%m'
+	else
+		let g:Qfstatusline#WarningConfig['format'] = 'L%l(%n)'
+	endif
+endif
 "}}}
 function! qfstatusline#Qfstatusline() abort "{{{
     let s:checkDict = {'check': 1, 'text': ''}
@@ -23,17 +31,21 @@ function! qfstatusline#Qfstatusline() abort "{{{
     return g:Qfstatusline#UpdateCmd()
 endfunction "}}}
 function! qfstatusline#Update(...) abort "{{{
-    if s:checkDict.check ==# 0
-        return s:checkDict.text
-    endif
+"    if s:checkDict.check ==# 0
+"        return s:checkDict.text
+"    endif
 
     let s:errorDict = {'num': 9999, 'text': ''}
     let s:errorFnr  = []
 
 		let s:pattern = '.'
+		let s:type = 'error'
 		if a:0 >= 1 && a:1 ==# 'error'
 			let s:pattern = g:Qfstatusline#ErrorConfig['pattern']
-		endif
+		elseif a:0 >=1 && a:1 ==# 'warning'
+      let s:pattern = g:Qfstatusline#WarningConfig['pattern']
+      let s:type = 'warning'
+    endif
 
     call s:copy_from_qflist()
 
@@ -54,7 +66,11 @@ endfunction "}}}
 function! s:output_status_text() abort "{{{
     let l:errorFnrLen = len(s:errorFnr)
     if 0 < l:errorFnrLen
-        let l:status_text = g:Qfstatusline#ErrorConfig['format']
+        if s:type ==# 'error'
+            let l:status_text = g:Qfstatusline#ErrorConfig['format']
+        else
+            let l:status_text = g:Qfstatusline#WarningConfig['format']
+        endif
         if match(l:status_text, '%n') !=# -1
            let l:status_text = substitute(l:status_text, '%n', l:errorFnrLen, 'g')
         endif
