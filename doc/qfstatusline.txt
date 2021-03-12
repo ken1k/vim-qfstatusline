@@ -36,8 +36,26 @@ g:Qfstatusline#UpdateCmd = function({value})	*g:Qfstatusline#UpdateCmd*
 
 (option)
 g:Qfstatusline#Text = {value}			*g:Qfstatusline#Text*
-	This variable is quickfix text message setting. If {value} is 1,
-	show quickfix text message.
+	This variable is quickfix text message setting.
+	  1 is show quickfix text message.
+	  0 is not show quickfix text message.
+	Default value is 1.
+
+(option)
+g:Qfstatusline#ErrorConfig = {value}		*g:Qfstatusline#ErrorConfig*
+g:Qfstatusline#WarningConfig = {value}		*g:Qfstatusline#WarningConfig*
+	This variable is type setting in quickfix item. 
+	Specify this {value} as a dictionary.
+	
+	- "pattern"
+	  This is used to filter by error or warning from quickfix list.
+
+	- "format"
+	  This is used as format to output text on statusline.
+	  The following format specifier can be used.
+	    %l : line number in the buffer
+	    %m : error or warning message
+	    %n : number of errors or warnings in the buffer
 
 ------------------------------------------------------------------------------
 COMMANDS					*qfstatusline-commands*
