@@ -8,20 +8,22 @@ if !exists('g:Qfstatusline#UpdateCmd')
 endif
 let g:Qfstatusline#Text = ! exists('g:Qfstatusline#Text') ? 1 :                        g:Qfstatusline#Text
 let s:checkDict         = ! exists('s:checkDict')         ? {'check': 0, 'text': ''} : s:checkDict
+let s:CommonPatternWMessage = 'L%l(%n) M:%m'
+let s:CommonPatternWoMessage = 'L%l(%n)'
 if !exists('g:Qfstatusline#ErrorConfig')
 	let g:Qfstatusline#ErrorConfig = {'pattern':'e'}
 	if g:Qfstatusline#Text ==# 1
-		let g:Qfstatusline#ErrorConfig['format'] = 'L%l(%n) M:%m'
+		let g:Qfstatusline#ErrorConfig['format'] = s:CommonPatternWMessage
 	else
-		let g:Qfstatusline#ErrorConfig['format'] = 'L%l(%n)'
+		let g:Qfstatusline#ErrorConfig['format'] = s:CommonPatternWoMessage
 	endif
 endif
 if !exists('g:Qfstatusline#WarningConfig')
 	let g:Qfstatusline#WarningConfig = {'pattern':'w'}
 	if g:Qfstatusline#Text ==# 1
-		let g:Qfstatusline#WarningConfig['format'] = 'L%l(%n) M:%m'
+		let g:Qfstatusline#WarningConfig['format'] = s:CommonPatternWMessage
 	else
-		let g:Qfstatusline#WarningConfig['format'] = 'L%l(%n)'
+		let g:Qfstatusline#WarningConfig['format'] = s:CommonPatternWoMessage
 	endif
 endif
 "}}}
