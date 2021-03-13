@@ -49,6 +49,9 @@ g:Qfstatusline#WarningConfig = {value}		*g:Qfstatusline#WarningConfig*
 	
 	- "pattern"
 	  This is used to filter by error or warning from quickfix list.
+	  Default:
+	    error   : "e"
+	    warning : "w"
 
 	- "format"
 	  This is used as format to output text on statusline.
@@ -56,6 +59,10 @@ g:Qfstatusline#WarningConfig = {value}		*g:Qfstatusline#WarningConfig*
 	    %l : line number in the buffer
 	    %m : error or warning message
 	    %n : number of errors or warnings in the buffer
+	  Default:
+	    This depends on |g:Qfstatusline#Text|.
+	    1 : "L%l(%n) M:%m"
+	    0 : "L%l(%n)"
 
 ------------------------------------------------------------------------------
 COMMANDS					*qfstatusline-commands*
@@ -69,8 +76,12 @@ FUNCTIONS					*qfstatusline-functions*
 qfstatusline#Qfstatusline()			*qfstatusline#Qfstatusline()*
 	Execute |g:Qfstatusline#UpdateCmd| function.
 
-qfstatusline#Update()				*qfstatusline#Update()*
-	return message, quickfix error list parameter {lnum}.
+qfstatusline#Update([{type}])			*qfstatusline#Update()*
+	return text specified by "format".
+	If {type} is "error", |g:Qfstatusline#ErrorConfig| is used.
+	If {type} is "warning", |g:Qfstatusline#WarningConfig| is used.
+	If {type} is omitted, 
+
 
 ==============================================================================
 USAGE						*qfstatusline-usage*
