@@ -33,9 +33,9 @@ function! qfstatusline#Qfstatusline() abort "{{{
     return g:Qfstatusline#UpdateCmd()
 endfunction "}}}
 function! qfstatusline#Update(...) abort "{{{
-"    if s:checkDict.check ==# 0
-"        return s:checkDict.text
-"    endif
+    if s:checkDict.check ==# 0
+        return s:checkDict.text
+    endif
 
     let s:errorDict = {'num': 9999, 'text': ''}
     let s:errorFnr  = []
