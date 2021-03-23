@@ -9,7 +9,7 @@ endif
 let g:Qfstatusline#Text = ! exists('g:Qfstatusline#Text') ? 1 :                                     g:Qfstatusline#Text
 let s:checkDict         = ! exists('s:checkDict')         ? {'check': 0, 'text': '', 'wtext': ''} : s:checkDict
 let s:CommonPatternWMessage = 'L%l(%n) M:%m'
-let s:CommonPatternWoMessage = 'L%l(%n)'
+let s:CommonPatternWoMessage = 'Error: L%l(%n)'
 if !exists('g:Qfstatusline#ErrorConfig')
 	let g:Qfstatusline#ErrorConfig = {'pattern':'e'}
 	if g:Qfstatusline#Text ==# 1
